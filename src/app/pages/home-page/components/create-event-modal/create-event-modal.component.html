@@ -1,0 +1,31 @@
+<p-dialog header="Create new event" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }" (onHide)="handleOnHide()">
+    <form class="flex gap-4 flex-column">
+        <p-floatLabel>
+            <label for="name">Name</label>
+            <input class="w-full" pInputText id="name" autocomplete="off" />
+        </p-floatLabel>
+    
+        <p-floatLabel>
+            <p-calendar class="w-full" [appendTo]="'body'" inputId="start" ></p-calendar>
+            <label for="start">Start</label>
+        </p-floatLabel>
+    
+        <p-floatLabel>
+            <p-calendar class="w-full" [appendTo]="'body'" inputId="end" ></p-calendar>
+            <label for="end">End</label>
+        </p-floatLabel>
+        <br>
+    
+        <div class="flex align-items-center gap-3 mb-5">
+            <label for="description" class="font-semibold w-6rem">Description</label>
+            <textarea pInputText id="description" class="flex-auto" autocomplete="off"> </textarea>
+        </div>
+        <br>
+    
+        <div class="flex justify-content-end gap-2">
+            <p-button label="Cancel" severity="secondary" (onClick)="handleOnCanel()" />
+            <p-button label="Save" (onClick)="handleOnSave()" />
+        </div>
+    </form>
+    
+</p-dialog>

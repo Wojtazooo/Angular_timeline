@@ -1,3 +1,6 @@
+<p-button (onClick)="showCreateEventModal()" label="Create event" />
+<app-create-event-modal [visible]="isCreateModalVisible" (onClose)="isCreateModalVisible = false"/>
+
 <div class="w-full flex  justify-content-center">
     <p-timeline class="w-9" [value]="events" align="alternate" styleClass="customized-timeline">
         <ng-template pTemplate="marker" let-event>
@@ -23,3 +26,5 @@
         </ng-template>
     </p-timeline>
 </div>
+
+
