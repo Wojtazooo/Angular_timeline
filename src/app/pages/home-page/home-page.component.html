@@ -1,1 +1,25 @@
-<p>home-page works!</p>
+<div class="w-full flex  justify-content-center">
+    <p-timeline class="w-9" [value]="events" align="alternate" styleClass="customized-timeline">
+        <ng-template pTemplate="marker" let-event>
+            {{event.start | date: 'dd/MM/yyyy'}}
+        </ng-template>
+        <ng-template pTemplate="content" let-event>
+            <p-card [header]="event.status" [subheader]="event.date" [header]="event.name">
+                <p>
+                    {{ event.start | date: 'dd/MM/yyyy' }} - {{ event.end | date: 'dd/MM/yyyy' }}
+                </p>
+    
+                <div class="p-1">
+                    Category:
+                    <i [ngStyle]="{ 'color': event.category.color }" [class]="event.category.icon" class="p-1"></i>
+                    <span [ngStyle]="{ 'color': event.category.color }">{{event.category.name}}</span>
+                </div>
+    
+                <img *ngIf="event.image" [src]="event.image" [alt]="event.name" class="shadow-2 w-full" />
+                <p>
+                    {{ event.description }}
+                </p>
+            </p-card>
+        </ng-template>
+    </p-timeline>
+</div>
