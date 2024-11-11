@@ -1,28 +1,37 @@
-<p-dialog header="Create new event" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }" (onHide)="handleOnHide()">
-    <form class="flex gap-4 flex-column">
-        <p-floatLabel>
-            <label for="name">Name</label>
-            <input class="w-full" pInputText id="name" autocomplete="off" />
-        </p-floatLabel>
+<p-dialog header="Create new event" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" (onHide)="handleOnHide()">
+    <form [formGroup]="form" class="flex flex-column gap-1">
+        <label for="name">Name</label>
+        <input class="w-full" pInputText id="name" autocomplete="off" formControlName="name"/>
+
+        <label for="start">Start</label>
+        <p-calendar styleClass="w-full" dateFormat="dd/mm/yy" [appendTo]="'body'" inputId="start" formControlName="start" ></p-calendar>
+
+        <label for="end">End</label>
+        <p-calendar styleClass="w-full" dateFormat="dd/mm/yy" [appendTo]="'body'" inputId="end" formControlName="end" ></p-calendar>
     
-        <p-floatLabel>
-            <p-calendar class="w-full" [appendTo]="'body'" inputId="start" ></p-calendar>
-            <label for="start">Start</label>
-        </p-floatLabel>
+        <label for="description">Description</label>
+        <textarea pInputText id="description" class="flex-auto" autocomplete="off" formControlName="description"> </textarea>
     
-        <p-floatLabel>
-            <p-calendar class="w-full" [appendTo]="'body'" inputId="end" ></p-calendar>
-            <label for="end">End</label>
-        </p-floatLabel>
-        <br>
-    
-        <div class="flex align-items-center gap-3 mb-5">
-            <label for="description" class="font-semibold w-6rem">Description</label>
-            <textarea pInputText id="description" class="flex-auto" autocomplete="off"> </textarea>
-        </div>
-        <br>
-    
-        <div class="flex justify-content-end gap-2">
+        <label for="imageUrl">Image URL</label>
+        <input class="w-full" pInputText id="imageUrl" autocomplete="off" formControlName="imageUrl" />
+
+        <label for="category">Category</label>
+        <p-dropdown styleClass="w-full" formControlName="category" [options]="categories" [appendTo]="'body'" placeholder="Select category">
+            <ng-template let-category pTemplate="selectedItem">
+                <i [ngStyle]="{ 'color': category.color }" [class]="category.icon" class="p-1"></i>
+                <span>
+                    {{ category.name }}
+                </span> 
+            </ng-template>
+            <ng-template let-category pTemplate="item">
+                <i [ngStyle]="{ 'color': category.color }" [class]="category.icon" class="p-1"></i>
+                <span>
+                    {{ category.name }}
+                </span> 
+            </ng-template>
+        </p-dropdown>
+
+        <div class="flex justify-content-end gap-2 mt-3">
             <p-button label="Cancel" severity="secondary" (onClick)="handleOnCanel()" />
             <p-button label="Save" (onClick)="handleOnSave()" />
         </div>

@@ -1,10 +1,15 @@
 <p-button (onClick)="showCreateEventModal()" label="Create event" />
-<app-create-event-modal [visible]="isCreateModalVisible" (onClose)="isCreateModalVisible = false"/>
+<app-create-event-modal 
+    [visible]="isCreateModalVisible" 
+    (onClose)="isCreateModalVisible = false"
+    (onSave)="handleOnCreateEventSaved($event)"
+/>
 
-<div class="w-full flex  justify-content-center">
+<div class="w-full flex justify-content-center">
     <p-timeline class="w-9" [value]="events" align="alternate" styleClass="customized-timeline">
         <ng-template pTemplate="marker" let-event>
             {{event.start | date: 'dd/MM/yyyy'}}
+            
         </ng-template>
         <ng-template pTemplate="content" let-event>
             <p-card [header]="event.status" [subheader]="event.date" [header]="event.name">
@@ -22,6 +27,8 @@
                 <p>
                     {{ event.description }}
                 </p>
+                <p-button>Edit</p-button>
+                <p-button>Delete</p-button>
             </p-card>
         </ng-template>
     </p-timeline>
