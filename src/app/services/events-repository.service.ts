@@ -29,10 +29,15 @@ export class EventsRepository {
     this.eventsSubject.next(this.events);
   }
 
+  deleteEvent(event: EventModel) {
+    this.events = [...this.events.filter(x => x.id != event.id)];
+    this.eventsSubject.next(this.events);
+  }
+
   private initCategories() {
     this.events = [
       {
-        id: 1,
+        id: crypto.randomUUID(),
         name: "UEFA Champions League Final",
         start: new Date("2023-06-10T21:00:00"),
         end: new Date("2023-06-10T23:00:00"),
@@ -41,7 +46,7 @@ export class EventsRepository {
         category: this.categories[0]
       },
       {
-        id: 2,
+        id: crypto.randomUUID(),
         name: "Taylor Swift Concert",
         start: new Date("2023-07-15T20:00:00"),
         end: new Date("2023-07-15T23:00:00"),
@@ -50,7 +55,7 @@ export class EventsRepository {
         category: this.categories[1]
       },
       {
-        id: 3,
+        id: crypto.randomUUID(), 
         name: "Avengers: Endgame Movie Screening",
         start: new Date("2023-08-01T18:00:00"),
         end: new Date("2023-08-01T21:00:00"),
@@ -59,7 +64,7 @@ export class EventsRepository {
         category: this.categories[2]
       },
       {
-        id: 4,
+        id: crypto.randomUUID(),
         name: "Google I/O Conference",
         start: new Date("2023-05-10T09:00:00"),
         end: new Date("2023-05-12T18:00:00"),
@@ -68,7 +73,7 @@ export class EventsRepository {
         category: this.categories[3]
       },
       {
-        id: 5,
+        id: crypto.randomUUID(),
         name: "Wimbledon Men's Final",
         start: new Date("2023-07-16T14:00:00"),
         end: new Date("2023-07-16T17:00:00"),
@@ -77,7 +82,7 @@ export class EventsRepository {
         category: this.categories[0]
       },
       {
-        id: 6,
+        id: crypto.randomUUID(),
         name: "Beyoncé World Tour",
         start: new Date("2023-08-05T19:00:00"),
         end: new Date("2023-08-05T22:30:00"),

@@ -43,6 +43,7 @@ export class CreateEventModalComponent {
 
   handleOnSave() {
     const event: EventModel = {
+      id: crypto.randomUUID(),
       ...this.form.value
     }
     this.form.reset();

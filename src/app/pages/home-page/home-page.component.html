@@ -5,6 +5,8 @@
     (onSave)="handleOnCreateEventSaved($event)"
 />
 
+<p-confirmDialog id="deleteConfimationDialog"></p-confirmDialog>
+
 <div class="w-full flex justify-content-center">
     <p-timeline class="w-9" [value]="events" align="alternate" styleClass="customized-timeline">
         <ng-template pTemplate="marker" let-event>
@@ -28,7 +30,7 @@
                     {{ event.description }}
                 </p>
                 <p-button>Edit</p-button>
-                <p-button>Delete</p-button>
+                <p-button (onClick)="handleDeleteButtonClick($event, event)">Delete</p-button>
             </p-card>
         </ng-template>
     </p-timeline>
