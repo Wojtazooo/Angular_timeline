@@ -10,11 +10,15 @@ import { DialogModule } from 'primeng/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [DialogModule, TimelineModule, CardModule, ButtonModule, CommonModule, CreateEventModalComponent, ConfirmDialogModule],
+  imports: [FormsModule, DialogModule, TimelineModule, CardModule, TableModule, CalendarModule, ButtonModule, CommonModule, CreateEventModalComponent, ConfirmDialogModule, InputSwitchModule],
   providers: [EventsRepository, MessageService],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
@@ -22,8 +26,11 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 export class HomePageComponent {
 
   protected events: EventModel[] = [];
+  protected filteredEvents: EventModel[] = [];
   isCreateModalVisible = false;
   eventToDelete: EventModel | undefined = undefined;
+  displayAsTimeLine = true;
+  dateFormat = 'dd/MM/yyyy';
 
   constructor(
     readonly eventsRepository: EventsRepository,
@@ -37,6 +44,7 @@ export class HomePageComponent {
         this.events = [...events].sort((x, y) => { 
           return x.start >= y.start ? 1 : -1
         });
+        this.updateFilteredEvents();
       });
   }
 
@@ -66,5 +74,19 @@ export class HomePageComponent {
         }
     });
     // this.eventToDelete = event;
+  }
+
+   // Kopia oryginalnej listy wydarzeń do filtrowania
+  dateFilter = { from: null, to: null };
+
+  updateFilteredEvents() {
+    this.filteredEvents = this.events.filter(event => {
+      const eventStart = new Date(event.start).getTime();
+      const eventEnd = new Date(event.end).getTime();
+      const fromDate = this.dateFilter.from ? new Date(this.dateFilter.from).getTime() : null;
+      const toDate = this.dateFilter.to ? new Date(this.dateFilter.to).getTime() : null;
+
+      return (!fromDate || eventStart >= fromDate) && (!toDate || eventEnd <= toDate);
+    });
   }
 }

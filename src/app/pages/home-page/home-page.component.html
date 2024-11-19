@@ -1,4 +1,4 @@
-<p-button (onClick)="showCreateEventModal()" label="Create event" />
+<p-button (onClick)="showCreateEventModal()" label="Create new event" />
 <app-create-event-modal 
     [visible]="isCreateModalVisible" 
     (onClose)="isCreateModalVisible = false"
@@ -6,17 +6,21 @@
 />
 
 <p-confirmDialog id="deleteConfimationDialog"></p-confirmDialog>
+<div>
+    Display as timeline?: <p-inputSwitch [(ngModel)]="displayAsTimeLine" />
+</div>
 
-<div class="w-full flex justify-content-center">
-    <p-timeline class="w-9" [value]="events" align="alternate" styleClass="customized-timeline">
+<div   class="w-full flex justify-content-center">
+    <h3 *ngIf="events.length === 0">No events! Create new event.</h3>
+    <p-timeline *ngIf="displayAsTimeLine" class="w-9" [value]="events" align="alternate" styleClass="customized-timeline">
         <ng-template pTemplate="marker" let-event>
-            {{event.start | date: 'dd/MM/yyyy'}}
+            {{event.start | date: dateFormat}}
             
         </ng-template>
         <ng-template pTemplate="content" let-event>
             <p-card [header]="event.status" [subheader]="event.date" [header]="event.name">
                 <p>
-                    {{ event.start | date: 'dd/MM/yyyy' }} - {{ event.end | date: 'dd/MM/yyyy' }}
+                    {{ event.start | date: dateFormat }} - {{ event.end | date: dateFormat }}
                 </p>
     
                 <div class="p-1">
@@ -34,6 +38,51 @@
             </p-card>
         </ng-template>
     </p-timeline>
+
+    <p-table *ngIf="displayAsTimeLine === false" [value]="filteredEvents" class="w-9" [styleClass]="'customized-table'" [paginator]="true" [rows]="10" [sortMode]="'multiple'">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="start">
+                    Start Date <p-sortIcon field="start"></p-sortIcon>
+                </th>
+                <th pSortableColumn="end">
+                    End Date <p-sortIcon field="end"></p-sortIcon> 
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="category.name">Category <p-sortIcon field="category.name"></p-sortIcon></th>
+                <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <th>
+                    <p-calendar styleClass="w-full" appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="dateFilter.from" (ngModelChange)="updateFilteredEvents()" placeholder="From"></p-calendar>
+                </th>
+               <th>
+                   <p-calendar styleClass="w-full"  appendTo="body" dateFormat="dd/mm/yy" [(ngModel)]="dateFilter.to" (ngModelChange)="updateFilteredEvents()" placeholder="To"></p-calendar>
+               </th>
+               <th></th>
+               <th></th>
+               <th></th>
+               <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-event>
+            <tr>
+                <td>{{ event.start | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ event.end | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ event.name }}</td>
+                <td>
+                    <i [ngStyle]="{ 'color': event.category.color }" [class]="event.category.icon" class="p-1"></i>
+                    <span [ngStyle]="{ 'color': event.category.color }">{{ event.category.name }}</span>
+                </td>
+                <td>{{ event.description }}</td>
+                <td>
+                    <p-button>Edit</p-button>
+                    <p-button (onClick)="handleDeleteButtonClick($event, event)">Delete</p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    
 </div>
 
 
