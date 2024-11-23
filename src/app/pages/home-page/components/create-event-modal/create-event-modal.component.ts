@@ -11,7 +11,6 @@ import { CategoriesRepository } from '../../../../services/categories-repository
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { EventModel } from '../../../../models/event-model'
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
-import { ControlErrorsComponent } from '../control-errors/control-errors.component'
 
 @Component({
     selector: 'app-create-event-modal',
@@ -25,7 +24,6 @@ import { ControlErrorsComponent } from '../control-errors/control-errors.compone
         InputTextModule,
         FloatLabelModule,
         CommonModule,
-        ControlErrorsComponent,
     ],
     templateUrl: './create-event-modal.component.html',
 })
@@ -63,8 +61,6 @@ export class CreateEventModalComponent {
             this.form.get(key)?.markAsDirty()
         })
         this.form.markAllAsTouched()
-
-        console.log(this.form)
         if (this.form.invalid) {
             return
         }
