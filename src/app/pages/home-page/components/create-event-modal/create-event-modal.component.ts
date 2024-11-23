@@ -11,6 +11,7 @@ import { CategoriesRepository } from '../../../../services/categories-repository
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { EventModel } from '../../../../models/event-model'
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { dateRangeValidator } from '../../../../validators/dateRangeValidators'
 
 @Component({
     selector: 'app-create-event-modal',
@@ -46,14 +47,17 @@ export class CreateEventModalComponent {
             .subscribe((categories) => {
                 this.categories = categories
             })
-        this.form = formBuilder.group({
-            name: new FormControl(undefined, Validators.required),
-            start: new FormControl(undefined, Validators.required),
-            end: new FormControl(undefined, Validators.required),
-            description: new FormControl(),
-            imageUrl: new FormControl(),
-            category: new FormControl(undefined, Validators.required),
-        })
+        this.form = formBuilder.group(
+            {
+                name: new FormControl(undefined, Validators.required),
+                start: new FormControl(undefined, Validators.required),
+                end: new FormControl(undefined, [Validators.required]),
+                description: new FormControl(),
+                imageUrl: new FormControl(),
+                category: new FormControl(undefined, Validators.required),
+            },
+            { validator: dateRangeValidator('start', 'end') }
+        )
     }
 
     handleOnSave() {

@@ -19,6 +19,7 @@ import { CategoriesRepository } from '../../../../services/categories-repository
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { CategoryModel } from '../../../../models/category-model'
 import { EventModel } from '../../../../models/event-model'
+import { dateRangeValidator } from '../../../../validators/dateRangeValidators'
 
 @Component({
     selector: 'app-edit-event-modal',
@@ -56,14 +57,17 @@ export class EditEventModalComponent implements OnChanges {
                 this.categories = categories
             })
 
-        this.form = formBuilder.group({
-            name: new FormControl('', Validators.required),
-            start: new FormControl(undefined, Validators.required),
-            end: new FormControl(undefined, Validators.required),
-            description: new FormControl(),
-            imageUrl: new FormControl(),
-            category: new FormControl(undefined, Validators.required),
-        })
+        this.form = formBuilder.group(
+            {
+                name: new FormControl('', Validators.required),
+                start: new FormControl(undefined, Validators.required),
+                end: new FormControl(undefined, [Validators.required]),
+                description: new FormControl(),
+                imageUrl: new FormControl(),
+                category: new FormControl(undefined, Validators.required),
+            },
+            { validator: dateRangeValidator('start', 'end') }
+        )
     }
 
     ngOnChanges(changes: SimpleChanges): void {
