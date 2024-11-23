@@ -6,6 +6,6 @@ export interface EventModel {
     start: Date
     end: Date
     description?: string
-    image?: string
+    imageUrl?: string
     category: CategoryModel
 }

@@ -15,12 +15,12 @@
                 <span [ngStyle]="{ color: event.category.color }">{{ event.category.name }}</span>
             </div>
 
-            <img *ngIf="event.image" [src]="event.image" [alt]="event.name" class="shadow-2 w-full" />
+            <img *ngIf="event.imageUrl" [src]="event.imageUrl" [alt]="event.name" class="shadow-2 w-full" />
             <p>
                 {{ event.description }}
             </p>
-            <p-button>Edit</p-button>
-            <p-button (onClick)="handleDeleteButtonClick(event)">Delete</p-button>
+            <p-button (onClick)="onEdit.emit(event)">Edit</p-button>
+            <p-button (onClick)="onDelete.emit(event)">Delete</p-button>
         </p-card>
     </ng-template>
 </p-timeline>

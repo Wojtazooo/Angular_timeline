@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common'
 export class EventsTableComponent implements OnChanges {
     @Input({ required: true }) events: EventModel[] = []
     @Output() onDelete: EventEmitter<EventModel> = new EventEmitter<EventModel>()
+    @Output() onEdit: EventEmitter<EventModel> = new EventEmitter<EventModel>()
 
     protected filteredEvents: EventModel[] = []
     protected dateFilter = { from: null, to: null }
@@ -33,9 +34,5 @@ export class EventsTableComponent implements OnChanges {
 
             return (!fromDate || eventStart >= fromDate) && (!toDate || eventEnd <= toDate)
         })
-    }
-
-    handleDeleteButtonClick(eventModel: EventModel) {
-        this.onDelete.emit(eventModel)
     }
 }

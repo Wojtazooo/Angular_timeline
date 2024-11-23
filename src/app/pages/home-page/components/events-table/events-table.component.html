@@ -55,8 +55,8 @@
             </td>
             <td>{{ event.description }}</td>
             <td>
-                <p-button>Edit</p-button>
-                <p-button (onClick)="handleDeleteButtonClick(event)">Delete</p-button>
+                <p-button (onClick)="onEdit.emit(event)">Edit</p-button>
+                <p-button (onClick)="onDelete.emit(event)">Delete</p-button>
             </td>
         </tr>
     </ng-template>

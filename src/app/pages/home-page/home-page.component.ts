@@ -16,6 +16,7 @@ import { TableModule } from 'primeng/table'
 import { CalendarModule } from 'primeng/calendar'
 import { EventsTimelineComponent } from './components/events-timeline/events-timeline.component'
 import { EventsTableComponent } from './components/events-table/events-table.component'
+import { EditEventModalComponent } from './components/edit-event-modal/edit-event-modal.component'
 
 @Component({
     selector: 'app-home-page',
@@ -32,6 +33,7 @@ import { EventsTableComponent } from './components/events-table/events-table.com
         InputSwitchModule,
         EventsTimelineComponent,
         EventsTableComponent,
+        EditEventModalComponent,
     ],
     providers: [EventsRepository, MessageService],
     templateUrl: './home-page.component.html',
@@ -40,6 +42,7 @@ export class HomePageComponent {
     protected events: EventModel[] = []
     isCreateModalVisible = false
     eventToDelete: EventModel | undefined = undefined
+    eventToEdit: EventModel | undefined = undefined
     displayAsTimeLine = true
     dateFormat = 'dd/MM/yyyy'
 
@@ -63,12 +66,30 @@ export class HomePageComponent {
         this.isCreateModalVisible = true
     }
 
-    handleOnCreateEventSaved(event: EventModel) {
+    handleOnEventEditInit(event: EventModel) {
+        this.eventToEdit = event
+    }
+
+    handleOnEventEditCancel() {
+        this.eventToEdit = undefined
+    }
+
+    handleOnEventEditSaved(event: EventModel) {
+        this.eventsRepository.editEvent(event)
+        this.eventToEdit = undefined
+    }
+
+    handleOnEventCreated(event: EventModel) {
         this.eventsRepository.addEvent(event)
         this.isCreateModalVisible = false
     }
 
-    handleDeleteButtonClick(eventModel: EventModel) {
+    handleOnEventEddited(event: EventModel) {
+        this.eventsRepository.editEvent(event)
+        this.eventToDelete = undefined
+    }
+
+    handleDeleteEventInit(eventModel: EventModel) {
         this.confirmationService.confirm({
             message: `Are you sure that you want to delete '${eventModel.name}?'`,
             header: 'Delete confirmation',

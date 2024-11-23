@@ -2,8 +2,15 @@
 <app-create-event-modal
     [visible]="isCreateModalVisible"
     (onClose)="isCreateModalVisible = false"
-    (onSave)="handleOnCreateEventSaved($event)"
+    (onSave)="handleOnEventCreated($event)"
 />
+<app-edit-event-modal
+    [visible]="eventToEdit !== undefined"
+    [eventToEdit]="eventToEdit"
+    (onClose)="handleOnEventEditCancel()"
+    (onSave)="handleOnEventEditSaved($event)"
+>
+</app-edit-event-modal>
 
 <p-confirmDialog id="deleteConfimationDialog"></p-confirmDialog>
 
@@ -12,11 +19,17 @@
 <div class="w-full flex justify-content-center">
     <h3 *ngIf="events.length === 0">No events! Create new event.</h3>
 
-    <app-events-timeline *ngIf="displayAsTimeLine" [events]="events" (onDelete)="handleDeleteButtonClick($event)" />
+    <app-events-timeline
+        *ngIf="displayAsTimeLine"
+        [events]="events"
+        (onDelete)="handleDeleteEventInit($event)"
+        (onEdit)="handleOnEventEditInit($event)"
+    />
 
     <app-events-table
         *ngIf="!displayAsTimeLine && events.length !== 0"
         [events]="events"
-        (onDelete)="handleDeleteButtonClick($event)"
+        (onDelete)="handleDeleteEventInit($event)"
+        (onEdit)="handleOnEventEditInit($event)"
     />
 </div>

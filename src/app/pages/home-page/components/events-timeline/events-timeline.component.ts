@@ -15,10 +15,7 @@ export class EventsTimelineComponent {
     @Input({ required: true }) events: EventModel[] = []
 
     @Output() onDelete: EventEmitter<EventModel> = new EventEmitter<EventModel>()
+    @Output() onEdit: EventEmitter<EventModel> = new EventEmitter<EventModel>()
 
     dateFormat = 'dd/MM/yyyy'
-
-    handleDeleteButtonClick(eventModel: EventModel) {
-        this.onDelete.emit(eventModel)
-    }
 }
