@@ -78,6 +78,7 @@ export class CreateEventModalComponent {
     }
 
     handleOnHide() {
+        this.form.reset()
         this.onClose.emit()
     }
 }
