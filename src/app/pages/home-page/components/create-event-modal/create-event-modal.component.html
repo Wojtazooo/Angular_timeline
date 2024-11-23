@@ -7,19 +7,8 @@
 >
     <form [formGroup]="form" class="flex flex-column gap-1">
         <label for="name">Name</label>
-        <input
-            class="w-full"
-            pInputText
-            id="name"
-            autocomplete="off"
-            formControlName="name"
-        />
-        <small
-            class="p-error block"
-            *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
-        >
-            Name is required</small
-        >
+        <input class="w-full" pInputText id="name" autocomplete="off" formControlName="name" />
+        <app-control-errors [control]="form.get('name')" fieldName="Name" />
 
         <label for="start">Start</label>
         <p-calendar
@@ -29,12 +18,7 @@
             inputId="start"
             formControlName="start"
         ></p-calendar>
-        <small
-            class="p-error block"
-            *ngIf="form.get('start')?.invalid && form.get('start')?.touched"
-        >
-            Start date is required</small
-        >
+        <app-control-errors [control]="form.get('start')" fieldName="Start" />
 
         <label for="end">End</label>
         <p-calendar
@@ -44,31 +28,14 @@
             inputId="end"
             formControlName="end"
         ></p-calendar>
-        <small
-            class="p-error block"
-            *ngIf="form.get('end')?.invalid && form.get('end')?.touched"
-        >
-            End date is required</small
-        >
+        <app-control-errors [control]="form.get('end')" fieldName="End" />
 
         <label for="description">Description</label>
-        <textarea
-            pInputText
-            id="description"
-            class="flex-auto"
-            autocomplete="off"
-            formControlName="description"
-        >
+        <textarea pInputText id="description" class="flex-auto" autocomplete="off" formControlName="description">
         </textarea>
 
         <label for="imageUrl">Image URL</label>
-        <input
-            class="w-full"
-            pInputText
-            id="imageUrl"
-            autocomplete="off"
-            formControlName="imageUrl"
-        />
+        <input class="w-full" pInputText id="imageUrl" autocomplete="off" formControlName="imageUrl" />
 
         <label for="category">Category</label>
         <p-dropdown
@@ -79,41 +46,22 @@
             placeholder="Select category"
         >
             <ng-template let-category pTemplate="selectedItem">
-                <i
-                    [ngStyle]="{ color: category.color }"
-                    [class]="category.icon"
-                    class="p-1"
-                ></i>
+                <i [ngStyle]="{ color: category.color }" [class]="category.icon" class="p-1"></i>
                 <span>
                     {{ category.name }}
                 </span>
             </ng-template>
             <ng-template let-category pTemplate="item">
-                <i
-                    [ngStyle]="{ color: category.color }"
-                    [class]="category.icon"
-                    class="p-1"
-                ></i>
+                <i [ngStyle]="{ color: category.color }" [class]="category.icon" class="p-1"></i>
                 <span>
                     {{ category.name }}
                 </span>
             </ng-template>
         </p-dropdown>
-        <small
-            class="p-error block"
-            *ngIf="
-                form.get('category')?.invalid && form.get('category')?.touched
-            "
-        >
-            Category is required</small
-        >
+        <app-control-errors [control]="form.get('category')" fieldName="Category" />
 
         <div class="flex justify-content-end gap-2 mt-3">
-            <p-button
-                label="Cancel"
-                severity="secondary"
-                (onClick)="handleOnCanel()"
-            />
+            <p-button label="Cancel" severity="secondary" (onClick)="handleOnCanel()" />
             <p-button label="Save" (onClick)="handleOnSave()" />
         </div>
     </form>

@@ -7,18 +7,12 @@
 
 <p-confirmDialog id="deleteConfimationDialog"></p-confirmDialog>
 
-<div>
-    Display as timeline?: <p-inputSwitch [(ngModel)]="displayAsTimeLine" />
-</div>
+<div>Display as timeline?: <p-inputSwitch [(ngModel)]="displayAsTimeLine" /></div>
 
 <div class="w-full flex justify-content-center">
     <h3 *ngIf="events.length === 0">No events! Create new event.</h3>
 
-    <app-events-timeline
-        *ngIf="displayAsTimeLine"
-        [events]="events"
-        (onDelete)="handleDeleteButtonClick($event)"
-    />
+    <app-events-timeline *ngIf="displayAsTimeLine" [events]="events" (onDelete)="handleDeleteButtonClick($event)" />
 
     <app-events-table
         *ngIf="!displayAsTimeLine && events.length !== 0"

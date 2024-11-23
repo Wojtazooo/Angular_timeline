@@ -35,7 +35,6 @@ import { EventsTableComponent } from './components/events-table/events-table.com
     ],
     providers: [EventsRepository, MessageService],
     templateUrl: './home-page.component.html',
-    styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {
     protected events: EventModel[] = []

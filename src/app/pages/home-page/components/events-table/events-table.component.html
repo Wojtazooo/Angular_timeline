@@ -8,21 +8,11 @@
 >
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="start">
-                Start Date <p-sortIcon field="start"></p-sortIcon>
-            </th>
-            <th pSortableColumn="end">
-                End Date <p-sortIcon field="end"></p-sortIcon>
-            </th>
-            <th pSortableColumn="name">
-                Name <p-sortIcon field="name"></p-sortIcon>
-            </th>
-            <th pSortableColumn="category.name">
-                Category <p-sortIcon field="category.name"></p-sortIcon>
-            </th>
-            <th pSortableColumn="description">
-                Description <p-sortIcon field="description"></p-sortIcon>
-            </th>
+            <th pSortableColumn="start">Start Date <p-sortIcon field="start"></p-sortIcon></th>
+            <th pSortableColumn="end">End Date <p-sortIcon field="end"></p-sortIcon></th>
+            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+            <th pSortableColumn="category.name">Category <p-sortIcon field="category.name"></p-sortIcon></th>
+            <th pSortableColumn="description">Description <p-sortIcon field="description"></p-sortIcon></th>
             <th>Actions</th>
         </tr>
 
@@ -56,25 +46,17 @@
 
     <ng-template pTemplate="body" let-event>
         <tr>
-            <td>{{ event.start | date : 'dd/MM/yyyy' }}</td>
-            <td>{{ event.end | date : 'dd/MM/yyyy' }}</td>
+            <td>{{ event.start | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ event.end | date: 'dd/MM/yyyy' }}</td>
             <td>{{ event.name }}</td>
             <td>
-                <i
-                    [ngStyle]="{ color: event.category.color }"
-                    [class]="event.category.icon"
-                    class="p-1"
-                ></i>
-                <span [ngStyle]="{ color: event.category.color }">{{
-                    event.category.name
-                }}</span>
+                <i [ngStyle]="{ color: event.category.color }" [class]="event.category.icon" class="p-1"></i>
+                <span [ngStyle]="{ color: event.category.color }">{{ event.category.name }}</span>
             </td>
             <td>{{ event.description }}</td>
             <td>
                 <p-button>Edit</p-button>
-                <p-button (onClick)="handleDeleteButtonClick(event)"
-                    >Delete</p-button
-                >
+                <p-button (onClick)="handleDeleteButtonClick(event)">Delete</p-button>
             </td>
         </tr>
     </ng-template>

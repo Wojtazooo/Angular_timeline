@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common'
-import {
-    Component,
-    DestroyRef,
-    EventEmitter,
-    Input,
-    Output,
-} from '@angular/core'
+import { Component, DestroyRef, EventEmitter, Input, Output } from '@angular/core'
 import { ButtonModule } from 'primeng/button'
 import { CalendarModule } from 'primeng/calendar'
 import { DialogModule } from 'primeng/dialog'
@@ -16,13 +10,8 @@ import { CategoryModel } from '../../../../models/category-model'
 import { CategoriesRepository } from '../../../../services/categories-repository.service'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { EventModel } from '../../../../models/event-model'
-import {
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    ReactiveFormsModule,
-    Validators,
-} from '@angular/forms'
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { ControlErrorsComponent } from '../control-errors/control-errors.component'
 
 @Component({
     selector: 'app-create-event-modal',
@@ -36,9 +25,9 @@ import {
         InputTextModule,
         FloatLabelModule,
         CommonModule,
+        ControlErrorsComponent,
     ],
     templateUrl: './create-event-modal.component.html',
-    styleUrl: './create-event-modal.component.scss',
 })
 export class CreateEventModalComponent {
     @Input({ required: true }) visible: boolean = false
