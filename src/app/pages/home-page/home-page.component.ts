@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms'
 import { TableModule } from 'primeng/table'
 import { CalendarModule } from 'primeng/calendar'
 import { EventsTimelineComponent } from './components/events-timeline/events-timeline.component'
+import { EventsTableComponent } from './components/events-table/events-table.component'
 
 @Component({
     selector: 'app-home-page',
@@ -30,6 +31,7 @@ import { EventsTimelineComponent } from './components/events-timeline/events-tim
         ConfirmDialogModule,
         InputSwitchModule,
         EventsTimelineComponent,
+        EventsTableComponent,
     ],
     providers: [EventsRepository, MessageService],
     templateUrl: './home-page.component.html',
@@ -37,7 +39,6 @@ import { EventsTimelineComponent } from './components/events-timeline/events-tim
 })
 export class HomePageComponent {
     protected events: EventModel[] = []
-    protected filteredEvents: EventModel[] = []
     isCreateModalVisible = false
     eventToDelete: EventModel | undefined = undefined
     displayAsTimeLine = true
@@ -56,7 +57,6 @@ export class HomePageComponent {
                 this.events = [...events].sort((x, y) => {
                     return x.start >= y.start ? 1 : -1
                 })
-                this.updateFilteredEvents()
             })
     }
 
@@ -92,26 +92,6 @@ export class HomePageComponent {
                     life: 3000,
                 })
             },
-        })
-    }
-
-    dateFilter = { from: null, to: null }
-
-    updateFilteredEvents() {
-        this.filteredEvents = this.events.filter((event) => {
-            const eventStart = new Date(event.start).getTime()
-            const eventEnd = new Date(event.end).getTime()
-            const fromDate = this.dateFilter.from
-                ? new Date(this.dateFilter.from).getTime()
-                : null
-            const toDate = this.dateFilter.to
-                ? new Date(this.dateFilter.to).getTime()
-                : null
-
-            return (
-                (!fromDate || eventStart >= fromDate) &&
-                (!toDate || eventEnd <= toDate)
-            )
         })
     }
 }

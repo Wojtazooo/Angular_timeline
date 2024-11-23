@@ -19,85 +19,9 @@
         (onDelete)="handleDeleteButtonClick($event)"
     />
 
-    <p-table
+    <app-events-table
         *ngIf="!displayAsTimeLine && events.length !== 0"
-        [value]="filteredEvents"
-        class="w-9"
-        [styleClass]="'customized-table'"
-        [paginator]="true"
-        [rows]="10"
-        [sortMode]="'multiple'"
-    >
-        <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="start">
-                    Start Date <p-sortIcon field="start"></p-sortIcon>
-                </th>
-                <th pSortableColumn="end">
-                    End Date <p-sortIcon field="end"></p-sortIcon>
-                </th>
-
-                <th pSortableColumn="name">
-                    Name <p-sortIcon field="name"></p-sortIcon>
-                </th>
-                <th pSortableColumn="category.name">
-                    Category <p-sortIcon field="category.name"></p-sortIcon>
-                </th>
-                <th pSortableColumn="description">
-                    Description <p-sortIcon field="description"></p-sortIcon>
-                </th>
-                <th>Actions</th>
-            </tr>
-            <tr>
-                <th>
-                    <p-calendar
-                        styleClass="w-full"
-                        appendTo="body"
-                        dateFormat="dd/mm/yy"
-                        [(ngModel)]="dateFilter.from"
-                        (ngModelChange)="updateFilteredEvents()"
-                        placeholder="From"
-                    ></p-calendar>
-                </th>
-                <th>
-                    <p-calendar
-                        styleClass="w-full"
-                        appendTo="body"
-                        dateFormat="dd/mm/yy"
-                        [(ngModel)]="dateFilter.to"
-                        (ngModelChange)="updateFilteredEvents()"
-                        placeholder="To"
-                    ></p-calendar>
-                </th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-event>
-            <tr>
-                <td>{{ event.start | date : 'dd/MM/yyyy' }}</td>
-                <td>{{ event.end | date : 'dd/MM/yyyy' }}</td>
-                <td>{{ event.name }}</td>
-                <td>
-                    <i
-                        [ngStyle]="{ color: event.category.color }"
-                        [class]="event.category.icon"
-                        class="p-1"
-                    ></i>
-                    <span [ngStyle]="{ color: event.category.color }">{{
-                        event.category.name
-                    }}</span>
-                </td>
-                <td>{{ event.description }}</td>
-                <td>
-                    <p-button>Edit</p-button>
-                    <p-button (onClick)="handleDeleteButtonClick(event)"
-                        >Delete</p-button
-                    >
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
+        [events]="events"
+        (onDelete)="handleDeleteButtonClick($event)"
+    />
 </div>
