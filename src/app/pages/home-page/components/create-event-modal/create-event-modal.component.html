@@ -1,40 +1,120 @@
-<p-dialog header="Create new event" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" (onHide)="handleOnHide()">
+<p-dialog
+    header="Create new event"
+    [modal]="true"
+    [(visible)]="visible"
+    [style]="{ width: '50rem' }"
+    (onHide)="handleOnHide()"
+>
     <form [formGroup]="form" class="flex flex-column gap-1">
         <label for="name">Name</label>
-        <input class="w-full" pInputText id="name" autocomplete="off" formControlName="name"/>
+        <input
+            class="w-full"
+            pInputText
+            id="name"
+            autocomplete="off"
+            formControlName="name"
+        />
+        <small
+            class="p-error block"
+            *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+        >
+            Name is required</small
+        >
 
         <label for="start">Start</label>
-        <p-calendar styleClass="w-full" dateFormat="dd/mm/yy" [appendTo]="'body'" inputId="start" formControlName="start" ></p-calendar>
+        <p-calendar
+            styleClass="w-full"
+            dateFormat="dd/mm/yy"
+            [appendTo]="'body'"
+            inputId="start"
+            formControlName="start"
+        ></p-calendar>
+        <small
+            class="p-error block"
+            *ngIf="form.get('start')?.invalid && form.get('start')?.touched"
+        >
+            Start date is required</small
+        >
 
         <label for="end">End</label>
-        <p-calendar styleClass="w-full" dateFormat="dd/mm/yy" [appendTo]="'body'" inputId="end" formControlName="end" ></p-calendar>
-    
+        <p-calendar
+            styleClass="w-full"
+            dateFormat="dd/mm/yy"
+            [appendTo]="'body'"
+            inputId="end"
+            formControlName="end"
+        ></p-calendar>
+        <small
+            class="p-error block"
+            *ngIf="form.get('end')?.invalid && form.get('end')?.touched"
+        >
+            End date is required</small
+        >
+
         <label for="description">Description</label>
-        <textarea pInputText id="description" class="flex-auto" autocomplete="off" formControlName="description"> </textarea>
-    
+        <textarea
+            pInputText
+            id="description"
+            class="flex-auto"
+            autocomplete="off"
+            formControlName="description"
+        >
+        </textarea>
+
         <label for="imageUrl">Image URL</label>
-        <input class="w-full" pInputText id="imageUrl" autocomplete="off" formControlName="imageUrl" />
+        <input
+            class="w-full"
+            pInputText
+            id="imageUrl"
+            autocomplete="off"
+            formControlName="imageUrl"
+        />
 
         <label for="category">Category</label>
-        <p-dropdown styleClass="w-full" formControlName="category" [options]="categories" [appendTo]="'body'" placeholder="Select category">
+        <p-dropdown
+            styleClass="w-full"
+            formControlName="category"
+            [options]="categories"
+            [appendTo]="'body'"
+            placeholder="Select category"
+        >
             <ng-template let-category pTemplate="selectedItem">
-                <i [ngStyle]="{ 'color': category.color }" [class]="category.icon" class="p-1"></i>
+                <i
+                    [ngStyle]="{ color: category.color }"
+                    [class]="category.icon"
+                    class="p-1"
+                ></i>
                 <span>
                     {{ category.name }}
-                </span> 
+                </span>
             </ng-template>
             <ng-template let-category pTemplate="item">
-                <i [ngStyle]="{ 'color': category.color }" [class]="category.icon" class="p-1"></i>
+                <i
+                    [ngStyle]="{ color: category.color }"
+                    [class]="category.icon"
+                    class="p-1"
+                ></i>
                 <span>
                     {{ category.name }}
-                </span> 
+                </span>
             </ng-template>
         </p-dropdown>
+        <small
+            class="p-error block"
+            *ngIf="
+                form.get('category')?.invalid && form.get('category')?.touched
+            "
+        >
+            Category is required</small
+        >
 
         <div class="flex justify-content-end gap-2 mt-3">
-            <p-button label="Cancel" severity="secondary" (onClick)="handleOnCanel()" />
+            <p-button
+                label="Cancel"
+                severity="secondary"
+                (onClick)="handleOnCanel()"
+            />
             <p-button label="Save" (onClick)="handleOnSave()" />
         </div>
     </form>
-    
 </p-dialog>
