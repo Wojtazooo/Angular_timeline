@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { ButtonModule } from 'primeng/button'
 import { CardModule } from 'primeng/card'
 import { TimelineModule } from 'primeng/timeline'
-import { EventModel } from '../../../../models/event-model'
+import { EventModel } from '../../models/event-model'
 
 @Component({
     selector: 'app-events-timeline',

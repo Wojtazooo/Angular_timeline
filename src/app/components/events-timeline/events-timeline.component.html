@@ -16,7 +16,7 @@
             </div>
 
             <img *ngIf="event.imageUrl" [src]="event.imageUrl" [alt]="event.name" class="shadow-2 w-full" />
-            <p>
+            <p style="overflow-wrap: anywhere">
                 {{ event.description }}
             </p>
             <p-button (onClick)="onEdit.emit(event)">Edit</p-button>

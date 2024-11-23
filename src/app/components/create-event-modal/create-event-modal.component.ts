@@ -1,28 +1,20 @@
 import { CommonModule } from '@angular/common'
-import { Component, DestroyRef, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core'
-import {
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    FormsModule,
-    NonNullableFormBuilder,
-    ReactiveFormsModule,
-    Validators,
-} from '@angular/forms'
+import { Component, DestroyRef, EventEmitter, Input, Output } from '@angular/core'
 import { ButtonModule } from 'primeng/button'
 import { CalendarModule } from 'primeng/calendar'
 import { DialogModule } from 'primeng/dialog'
 import { DropdownModule } from 'primeng/dropdown'
 import { FloatLabelModule } from 'primeng/floatlabel'
 import { InputTextModule } from 'primeng/inputtext'
-import { CategoriesRepository } from '../../../../services/categories-repository.service'
+import { CategoryModel } from '../../models/category-model'
+import { CategoriesRepository } from '../../services/categories-repository.service'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { CategoryModel } from '../../../../models/category-model'
-import { EventModel } from '../../../../models/event-model'
-import { dateRangeValidator } from '../../../../validators/dateRangeValidators'
+import { EventModel } from '../../models/event-model'
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { dateRangeValidator } from '../../validators/dateRangeValidators'
 
 @Component({
-    selector: 'app-edit-event-modal',
+    selector: 'app-create-event-modal',
     standalone: true,
     imports: [
         ReactiveFormsModule,
@@ -34,16 +26,15 @@ import { dateRangeValidator } from '../../../../validators/dateRangeValidators'
         FloatLabelModule,
         CommonModule,
     ],
-    templateUrl: './edit-event-modal.component.html',
+    templateUrl: './create-event-modal.component.html',
 })
-export class EditEventModalComponent implements OnChanges {
+export class CreateEventModalComponent {
     @Input({ required: true }) visible: boolean = false
-    @Input({ required: true }) eventToEdit: EventModel | undefined
     @Output() onClose: EventEmitter<void> = new EventEmitter()
     @Output() onSave: EventEmitter<EventModel> = new EventEmitter<EventModel>()
 
-    protected form: FormGroup
     protected categories: CategoryModel[] = []
+    protected form: FormGroup
 
     constructor(
         readonly categoriesRepository: CategoriesRepository,
@@ -56,10 +47,9 @@ export class EditEventModalComponent implements OnChanges {
             .subscribe((categories) => {
                 this.categories = categories
             })
-
         this.form = formBuilder.group(
             {
-                name: new FormControl('', Validators.required),
+                name: new FormControl(undefined, Validators.required),
                 start: new FormControl(undefined, Validators.required),
                 end: new FormControl(undefined, [Validators.required]),
                 description: new FormControl(),
@@ -68,24 +58,6 @@ export class EditEventModalComponent implements OnChanges {
             },
             { validator: dateRangeValidator('start', 'end') }
         )
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['eventToEdit']) {
-            this.form.patchValue({
-                name: this.eventToEdit?.name,
-                start: this.eventToEdit?.start,
-                end: this.eventToEdit?.end,
-                category: this.eventToEdit?.category,
-                description: this.eventToEdit?.description,
-                imageUrl: this.eventToEdit?.imageUrl,
-            })
-        }
-    }
-
-    handleOnHide() {
-        this.form.reset()
-        this.onClose.emit()
     }
 
     handleOnSave() {
@@ -98,7 +70,7 @@ export class EditEventModalComponent implements OnChanges {
         }
 
         const event: EventModel = {
-            id: this.eventToEdit?.id,
+            id: crypto.randomUUID(),
             ...this.form.value,
         }
         this.form.reset()
@@ -106,6 +78,11 @@ export class EditEventModalComponent implements OnChanges {
     }
 
     handleOnCanel() {
+        this.onClose.emit()
+    }
+
+    handleOnHide() {
+        this.form.reset()
         this.onClose.emit()
     }
 }

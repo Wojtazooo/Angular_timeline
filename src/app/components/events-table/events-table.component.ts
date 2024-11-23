@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core'
 import { CalendarModule } from 'primeng/calendar'
 import { TableModule } from 'primeng/table'
-import { EventModel } from '../../../../models/event-model'
 import { FormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
+import { EventModel } from '../../models/event-model'
 
 @Component({
     selector: 'app-events-table',
