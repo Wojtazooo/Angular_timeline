@@ -1,4 +1,3 @@
-<p-button (onClick)="showCreateEventModal()" label="Create new event" />
 <app-create-event-modal
     [visible]="isCreateModalVisible"
     (onClose)="isCreateModalVisible = false"
@@ -9,12 +8,17 @@
     [eventToEdit]="eventToEdit"
     (onClose)="handleOnEventEditCancel()"
     (onSave)="handleOnEventEditSaved($event)"
->
-</app-edit-event-modal>
-
+/>
 <p-confirmDialog id="deleteConfimationDialog"></p-confirmDialog>
 
-<div>Display as timeline?: <p-inputSwitch [(ngModel)]="displayAsTimeLine" /></div>
+<div class="flex justify-content-between mb-5">
+    <p-button class="p-2" (onClick)="showCreateEventModal()" label="Create new event" />
+    <div class="p-2 flex align-items-center">
+        <span class="p-2">Table</span>
+        <p-inputSwitch [(ngModel)]="displayAsTimeLine" />
+        <span class="p-2">Timeline</span>
+    </div>
+</div>
 
 <div class="w-full flex justify-content-center">
     <h3 *ngIf="events.length === 0">No events! Create new event.</h3>

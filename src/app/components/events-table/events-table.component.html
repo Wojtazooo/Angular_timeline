@@ -54,10 +54,14 @@
                 <span [ngStyle]="{ color: event.category.color }">{{ event.category.name }}</span>
             </td>
             <td style="overflow-wrap: anywhere">{{ event.description }}</td>
-            <td>
-                <p-button (onClick)="onEdit.emit(event)">Edit</p-button>
-                <p-button (onClick)="onDelete.emit(event)">Delete</p-button>
-            </td>
+            <div>
+                <p-button class="mr-2" (onClick)="onEdit.emit(event)" severity="secondary"
+                    ><i style="color: orange" class="fa-solid fa-pen-to-square mr-2"></i> Edit</p-button
+                >
+                <p-button class="mr-2" (onClick)="onDelete.emit(event)" severity="secondary"
+                    ><i style="color: red" class="fa-solid fa-trash mr-2"></i> Delete</p-button
+                >
+            </div>
         </tr>
     </ng-template>
 </p-table>

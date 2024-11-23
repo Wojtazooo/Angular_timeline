@@ -3,7 +3,22 @@
         {{ event.start | date: dateFormat }}
     </ng-template>
     <ng-template pTemplate="content" let-event>
-        <p-card [header]="event.status" [subheader]="event.date" [header]="event.name">
+        <p-card [subheader]="event.date">
+            <!-- <ng-template pTemplate="header">
+                
+            </ng-template> -->
+
+            <div class="flex justify-content-between align-items-center">
+                <div class="p-card-title">{{ event.name }}</div>
+                <div>
+                    <p-button class="mr-2" (onClick)="onEdit.emit(event)" severity="secondary"
+                        ><i style="color: orange" class="fa-solid fa-pen-to-square mr-2"></i> Edit</p-button
+                    >
+                    <p-button (onClick)="onDelete.emit(event)" severity="secondary"
+                        ><i style="color: red" class="fa-solid fa-trash mr-2"></i> Delete</p-button
+                    >
+                </div>
+            </div>
             <p>
                 {{ event.start | date: dateFormat }} -
                 {{ event.end | date: dateFormat }}
@@ -15,12 +30,10 @@
                 <span [ngStyle]="{ color: event.category.color }">{{ event.category.name }}</span>
             </div>
 
-            <img *ngIf="event.imageUrl" [src]="event.imageUrl" [alt]="event.name" class="shadow-2 w-full" />
             <p style="overflow-wrap: anywhere">
                 {{ event.description }}
             </p>
-            <p-button (onClick)="onEdit.emit(event)">Edit</p-button>
-            <p-button (onClick)="onDelete.emit(event)">Delete</p-button>
+            <img *ngIf="event.imageUrl" [src]="event.imageUrl" [alt]="event.name" class="shadow-2 w-full" />
         </p-card>
     </ng-template>
 </p-timeline>
