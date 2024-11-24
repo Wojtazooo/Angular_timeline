@@ -28,5 +28,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Deploy manually to Google Cloud
 
+```
 docker build -t europe-central2-docker.pkg.dev/angular-timeline/angular-timeline-cr-repo/angular-timeline/angular-timeline-app .
 docker push europe-central2-docker.pkg.dev/angular-timeline/angular-timeline-cr-repo/angular-timeline/angular-timeline-app
+```
